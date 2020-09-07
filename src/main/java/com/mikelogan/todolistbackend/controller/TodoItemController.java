@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("todo")
@@ -31,18 +32,20 @@ public class TodoItemController {
     }
 
     @PostMapping("/")
-    public HttpStatus addItem(@RequestBody TodoItemDto todoItemDto) {
+    public ResponseEntity<?> addItem(@RequestBody TodoItemDto todoItemDto) {
         
         this.todoItemService.add(todoItemDto);
-        return HttpStatus.CREATED;
+        return new ResponseEntity<>(todoItemDto, HttpStatus.CREATED);
     }
     
     @PutMapping("/")
-    public HttpStatus updateItem(@RequestBody TodoItemDto todoItemDto) {
+    public ResponseEntity<?> updateItem(@RequestBody TodoItemDto todoItemDto) {
         
         if(this.todoItemService.update(todoItemDto)) {
-            return HttpStatus.OK;
+            return new ResponseEntity<>(todoItemDto, HttpStatus.OK);
         }
-        return HttpStatus.NOT_FOUND;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    //TODO get/id and delete/id endpoint!
 }
