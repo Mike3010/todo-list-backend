@@ -7,6 +7,7 @@ import com.mikelogan.todolistbackend.dto.TodoItemDto;
 import com.mikelogan.todolistbackend.service.TodoItemService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +30,14 @@ public class TodoItemController {
         this.todoItemService = todoItemService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/")
     public List<TodoItemDto> getAll() {
 
         return this.todoItemService.getAllTodoItems();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<?> getItem(@PathVariable UUID id) {
         
@@ -46,6 +49,7 @@ public class TodoItemController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/")
     public ResponseEntity<?> addItem(@RequestBody TodoItemDto todoItemDto) {
         
@@ -53,6 +57,7 @@ public class TodoItemController {
         return new ResponseEntity<>(todoItemDto, HttpStatus.CREATED);
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/")
     public ResponseEntity<?> updateItem(@RequestBody TodoItemDto todoItemDto) {
         
@@ -62,6 +67,7 @@ public class TodoItemController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> DeleteItem(@PathVariable UUID id) {
                 
