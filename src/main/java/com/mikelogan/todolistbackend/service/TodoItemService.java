@@ -18,9 +18,7 @@ public class TodoItemService {
         {
             add(new TodoItemDto(UUID.randomUUID(), "Item 1", "Text 1", 1));             
             add(new TodoItemDto(UUID.randomUUID(), "Item 2", "Text 2", 2));             
-            add(new TodoItemDto(UUID.randomUUID(), "Item 3", "Text 3", 3));             
-            add(new TodoItemDto(UUID.randomUUID(), "Item 4", "Text 4", 4));             
-            add(new TodoItemDto(UUID.randomUUID(), "Item 5", "Text 5", 5));             
+            add(new TodoItemDto(UUID.randomUUID(), "Item 3", "Text 3", 3));                     
         } 
     };
 
@@ -38,6 +36,25 @@ public class TodoItemService {
 		for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
             if(this.dummyItems.get(counter).getId().equals(todoItemDto.getId())) {
                 this.dummyItems.set(counter, todoItemDto);
+                return true;
+            }
+        }
+        return false;
+	}
+
+	public TodoItemDto get(UUID id) {
+        for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
+            if(this.dummyItems.get(counter).getId().equals(id)) {
+                return this.dummyItems.get(counter);
+            }
+        }
+        return null;
+	}
+
+	public boolean delete(UUID id) {
+		for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
+            if(this.dummyItems.get(counter).getId().equals(id)) {
+                this.dummyItems.remove(this.dummyItems.get(counter));
                 return true;
             }
         }
