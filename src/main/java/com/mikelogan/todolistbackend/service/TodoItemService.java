@@ -2,62 +2,68 @@ package com.mikelogan.todolistbackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.mikelogan.todolistbackend.dto.TodoItemDto;
+import com.mikelogan.todolistbackend.model.TodoItem;
+import com.mikelogan.todolistbackend.repository.TodoItemRepository;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodoItemService {
     
-    private final List<TodoItemDto> dummyItems = new ArrayList<TodoItemDto>() {
+    TodoItemRepository todoItemRepository;
+    ModelMapper modelMapper;
 
-        private static final long serialVersionUID = 1L;
+    @Autowired
+    public TodoItemService(TodoItemRepository todoItemRepository) {
 
-        {
-            add(new TodoItemDto(UUID.randomUUID(), "Item 1", "Text 1", 1));             
-            add(new TodoItemDto(UUID.randomUUID(), "Item 2", "Text 2", 2));             
-            add(new TodoItemDto(UUID.randomUUID(), "Item 3", "Text 3", 3));                     
-        } 
-    };
+        this.todoItemRepository = todoItemRepository;
+        this.modelMapper = new ModelMapper();
+    }
 
     public List<TodoItemDto> getAllTodoItems() {
         
-        return this.dummyItems;
+        List<TodoItem> todoItems = (List<TodoItem>) this.todoItemRepository.findAll();
+        
+        List<TodoItemDto> targetList =
+            todoItems
+                .stream()
+                .map(source -> this.modelMapper.map(source, TodoItemDto.class))
+                .collect(Collectors.toList());
+
+        return targetList;
     }
 
 	public void add(final TodoItemDto todoItemDto) {
-        todoItemDto.setId(UUID.randomUUID());
-        this.dummyItems.add(todoItemDto);
+        
+        TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
+        this.todoItemRepository.save(todoItem);
     }
 
     public boolean update(final TodoItemDto todoItemDto) {
-		for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
-            if(this.dummyItems.get(counter).getId().equals(todoItemDto.getId())) {
-                this.dummyItems.set(counter, todoItemDto);
-                return true;
-            }
-        }
-        return false;
+
+        TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
+        this.todoItemRepository.save(todoItem);
+        return true;
 	}
 
 	public TodoItemDto get(UUID id) {
-        for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
-            if(this.dummyItems.get(counter).getId().equals(id)) {
-                return this.dummyItems.get(counter);
-            }
+        Optional<TodoItem> todoItem = this.todoItemRepository.findById(id);
+        if(todoItem.isPresent()) {
+            
+            return this.modelMapper.map(todoItem.get(), TodoItemDto.class);
         }
         return null;
 	}
 
 	public boolean delete(UUID id) {
-		for (int counter = 0; counter < this.dummyItems.size(); counter++) { 
-            if(this.dummyItems.get(counter).getId().equals(id)) {
-                this.dummyItems.remove(this.dummyItems.get(counter));
-                return true;
-            }
-        }
-        return false;
+		this.todoItemRepository.deleteById(id);
+        return true;
 	}
 }
