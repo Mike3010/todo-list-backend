@@ -15,14 +15,16 @@ public class TodoItem {
     private UUID id;
     private String title;
     private String text;
+    private String email;
     private int sort;
 
     public TodoItem() {}
 
-    public TodoItem(UUID id, String title, String text, int sort) {
+    public TodoItem(UUID id, String title, String text, String email, int sort) {
         this.id = id;
         this.title = title;
         this.text = text;
+        this.email = email;
         this.sort = sort;
     }
 
@@ -56,5 +58,13 @@ public class TodoItem {
 
     public void setSort(int sort) {
         this.sort = sort;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
