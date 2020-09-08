@@ -10,4 +10,14 @@ mk dir for persistent content
 
 ## Run database
 
-```docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v c:/users/mike/docker/volumes/postgres:/var/lib/postgresql/data postgres```
+```docker run --rm --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data postgres```
+
+## Create app as container
+
+```./mvwn install````
+
+```docker build -t todo-backend .```
+
+## Run docker container
+
+```docker run -p 8080:8080 -d todo-backend```
