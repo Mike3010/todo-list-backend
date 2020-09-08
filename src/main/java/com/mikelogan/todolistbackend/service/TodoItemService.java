@@ -1,6 +1,5 @@
 package com.mikelogan.todolistbackend.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +20,7 @@ public class TodoItemService {
     ModelMapper modelMapper;
 
     @Autowired
-    public TodoItemService(TodoItemRepository todoItemRepository) {
+    public TodoItemService(final TodoItemRepository todoItemRepository) {
 
         this.todoItemRepository = todoItemRepository;
         this.modelMapper = new ModelMapper();
@@ -29,9 +28,9 @@ public class TodoItemService {
 
     public List<TodoItemDto> getAllTodoItems() {
         
-        List<TodoItem> todoItems = (List<TodoItem>) this.todoItemRepository.findAll();
+        final List<TodoItem> todoItems = (List<TodoItem>) this.todoItemRepository.findAll();
         
-        List<TodoItemDto> targetList =
+        final List<TodoItemDto> targetList =
             todoItems
                 .stream()
                 .map(source -> this.modelMapper.map(source, TodoItemDto.class))
@@ -42,19 +41,19 @@ public class TodoItemService {
 
 	public void add(final TodoItemDto todoItemDto) {
         
-        TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
+        final TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
         this.todoItemRepository.save(todoItem);
     }
 
     public boolean update(final TodoItemDto todoItemDto) {
 
-        TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
+        final TodoItem todoItem = this.modelMapper.map(todoItemDto, TodoItem.class);
         this.todoItemRepository.save(todoItem);
         return true;
 	}
 
-	public TodoItemDto get(UUID id) {
-        Optional<TodoItem> todoItem = this.todoItemRepository.findById(id);
+	public TodoItemDto get(final UUID id) {
+        final Optional<TodoItem> todoItem = this.todoItemRepository.findById(id);
         if(todoItem.isPresent()) {
             
             return this.modelMapper.map(todoItem.get(), TodoItemDto.class);
@@ -62,7 +61,7 @@ public class TodoItemService {
         return null;
 	}
 
-	public boolean delete(UUID id) {
+	public boolean delete(final UUID id) {
 		this.todoItemRepository.deleteById(id);
         return true;
 	}
