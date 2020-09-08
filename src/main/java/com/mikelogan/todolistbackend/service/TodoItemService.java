@@ -36,7 +36,7 @@ public class TodoItemService {
 
     public List<TodoItemDto> getAllTodoItems() {
         
-        final List<TodoItem> todoItems = (List<TodoItem>) this.todoItemRepository.findByEmail(this.getUserEmailAdress());
+        final List<TodoItem> todoItems = (List<TodoItem>) this.todoItemRepository.findByEmailOrderBySortAsc(this.getUserEmailAdress());
         
         final List<TodoItemDto> targetList =
             todoItems

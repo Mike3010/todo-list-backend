@@ -14,5 +14,5 @@ public interface TodoItemRepository extends CrudRepository<TodoItem, UUID> {
 
   Optional<TodoItem> findById(UUID id);
 
-  List<TodoItem> findByEmail(String userEmailAdress);
+  List<TodoItem> findByEmailOrderBySortAsc(String userEmailAdress);
 }
