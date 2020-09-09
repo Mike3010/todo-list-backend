@@ -30,14 +30,14 @@ public class TodoItemController {
         this.todoItemService = todoItemService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @GetMapping("/")
     public List<TodoItemDto> getAll() {
 
         return this.todoItemService.getAllTodoItems();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<?> getItem(@PathVariable UUID id) {
         
@@ -49,7 +49,7 @@ public class TodoItemController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @PostMapping("/")
     public ResponseEntity<?> addItem(@RequestBody TodoItemDto todoItemDto) {
         
@@ -57,7 +57,7 @@ public class TodoItemController {
         return new ResponseEntity<>(todoItemDto, HttpStatus.CREATED);
     }
     
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @PutMapping("/")
     public ResponseEntity<?> updateItem(@RequestBody TodoItemDto todoItemDto) {
         
@@ -67,7 +67,7 @@ public class TodoItemController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> DeleteItem(@PathVariable UUID id) {
                 
