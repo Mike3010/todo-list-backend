@@ -1,9 +1,28 @@
 spring:
+  profiles:
+    active: "dev"
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: https://accounts.google.com
+
+---
+
+spring:
+  profiles: dev
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: docker
+
+---
+
+spring:
+  profiles: docker
   jpa:
     hibernate:
       ddl-auto: none
