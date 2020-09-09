@@ -14,7 +14,7 @@ mk dir for persistent content
 
 ## Create app as container
 
-```./mvwn install````
+```./mvwn install```
 
 ```docker build -t todo-backend .```
 
