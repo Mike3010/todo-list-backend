@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class TodoItem {
@@ -15,16 +16,18 @@ public class TodoItem {
     private UUID id;
     private String title;
     private String text;
-    private String email;
     private int sort;
+    
+    @ManyToOne
+    private User user;
 
     public TodoItem() {}
 
-    public TodoItem(UUID id, String title, String text, String email, int sort) {
+    public TodoItem(UUID id, String title, String text, User user, int sort) {
         this.id = id;
         this.title = title;
         this.text = text;
-        this.email = email;
+        this.user = user;
         this.sort = sort;
     }
 
@@ -60,11 +63,11 @@ public class TodoItem {
         this.sort = sort;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

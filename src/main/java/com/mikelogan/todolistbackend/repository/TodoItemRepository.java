@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.mikelogan.todolistbackend.model.TodoItem;
+import com.mikelogan.todolistbackend.model.User;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,5 +15,5 @@ public interface TodoItemRepository extends CrudRepository<TodoItem, UUID> {
 
   Optional<TodoItem> findById(UUID id);
 
-  List<TodoItem> findByEmailOrderBySortAsc(String userEmailAdress);
+  List<TodoItem> findByUserOrderBySortAsc(User userEmailAdress);
 }
